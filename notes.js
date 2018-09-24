@@ -3,28 +3,34 @@ console.log('Starting notes.js')
 
 const fs = require('fs')
 
+var fetchNotes = () => {
+    try {
+        var notesString = fs.readFileSync('notes-data.json')
+        return JSON.parse(notesString)
+    } catch (e) {
+        return []
+    }
+}
+
+var saveNotes = (notes) => {
+    fs.writeFileSync('notes-data.json', JSON.stringify(notes))
+}
+
 var addNote = (title, body) => {
     console.log('adding notes...');
-    var notes = [];
+    var notes = fetchNotes();
     var note = {
         title,
         body,
     };
 
-    try {
-        var notesString = fs.readFileSync('notes-data.json')
-        notes = JSON.parse(notesString)
-    } catch (e) {
-
-    }
 
     var duplicateNotes = notes.filter((note) => note.title === title)
 
     if (duplicateNotes.length === 0) {
         notes.push(note)
-        fs.writeFileSync('notes-data.json', JSON.stringify(notes))
-    }else{
-        console.log('The note be added is already exist.')
+        saveNotes(notes)
+        return note
     }
 }
 
@@ -40,6 +46,9 @@ var getNote = (title) => {
 
 var removeNote = (title) => {
     console.log('removing notes...')
+    // fetch notes
+    // filter notes, removing the one with the title of argument
+    // save new notes array
 
 }
 

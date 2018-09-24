@@ -11,9 +11,17 @@ var command = process.argv[2]
 // console.log('Command: ', command)
 // console.log('Process', process.argv)
 console.log('Yargs', argv)
- 
+
 if (command === 'add') {
-    notes.addNote(argv.title, argv.body)
+    var note = notes.addNote(argv.title, argv.body)
+    if (note) {
+        console.log('Note created')
+        console.log('--')
+        console.log(`Title: ${note.title}`)
+        console.log(`Body: ${note.body}`)
+    } else {
+        console.log('The note be added is already exist.')
+    }
 
 } else if (command === 'list') {
     notes.getAll()
