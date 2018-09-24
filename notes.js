@@ -36,12 +36,15 @@ var addNote = (title, body) => {
 
 var getAll = () => {
     console.log('listing notes...')
-
+    var notes = fetchNotes()
+    return notes
 }
 
 var getNote = (title) => {
     console.log('getting notes...')
-
+    var notes = fetchNotes()
+    var filterNotes = notes.filter((note) => note.title === title)
+    return filterNotes
 }
 
 var removeNote = (title) => {

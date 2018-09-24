@@ -16,18 +16,36 @@ if (command === 'add') {
     var note = notes.addNote(argv.title, argv.body)
     if (note) {
         console.log('Note created')
-        console.log('--')
+        console.log('----')
         console.log(`Title: ${note.title}`)
         console.log(`Body: ${note.body}`)
     } else {
-        console.log('The note be added is already exist.')
+        console.log('Note is already exist.')
     }
 
 } else if (command === 'list') {
-    notes.getAll()
-
+    var notesList = notes.getAll()
+    console.log('Notes listed')
+    console.log('----')
+    if (notesList) {
+        notesList.forEach(note => {
+            console.log(`Title: ${note.title}; Body: ${note.body}`)
+        });
+    } else {
+        console.log('The notes are not found')
+    }
 } else if (command === 'read') {
-    notes.getNote(argv.title)
+    var notesList = notes.getNote(argv.title)
+    if (notesList) {
+        console.log('Note found')
+        console.log('----')
+        notesList.forEach(note => {
+            console.log(`Title: ${note.title}`)
+            console.log(`Body: ${note.body}`)
+        });
+    } else {
+        console.log('Note not found')
+    }
 
 } else if (command === 'remove') {
     var noteRemoved = notes.removeNote(argv.title)
